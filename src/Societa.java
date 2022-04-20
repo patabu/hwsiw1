@@ -1,33 +1,53 @@
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+//Se una società viene rimossa, vengono rimossi gli allievi associati
 
 @Entity
 public class Societa {
-	@Column(length = 2000)
+	
+	@Id
+	private Long id;
 	private String ragioneSociale;
 	private String indirizzo;
 	private String sede;
-	private int nCivico;
 	private String comune;
 	private String cap;
+	private int numeroCivico;
 	private String provincia;
 	@Column(nullable = false)
 	private String telefono;
+	@OneToMany(cascade = CascadeType.REMOVE)
+	private List<Allievo> allievi;
 
 	public Societa() {
 	}
 
-	public Societa(String ragioneSociale, String indirizzo, String sede, int nCivico, String comune, String cap,
+	public Societa(Long id, String ragioneSociale, String indirizzo, String sede, int numeroCivico, String comune, String cap,
 			String provincia, String telefono) {
 		super();
+		this.id = id;
 		this.ragioneSociale = ragioneSociale;
 		this.indirizzo = indirizzo;
 		this.sede = sede;
-		this.nCivico = nCivico;
+		this.numeroCivico = numeroCivico;
 		this.comune = comune;
 		this.cap = cap;
 		this.provincia = provincia;
 		this.telefono = telefono;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getRagioneSociale() {
@@ -54,12 +74,12 @@ public class Societa {
 		this.sede = sede;
 	}
 
-	public int getnCivico() {
-		return nCivico;
+	public int getNumeroCivico() {
+		return numeroCivico;
 	}
 
-	public void setnCivico(int nCivico) {
-		this.nCivico = nCivico;
+	public void setNumeroCivico(int numeroCivico) {
+		this.numeroCivico = numeroCivico;
 	}
 
 	public String getComune() {
@@ -93,4 +113,13 @@ public class Societa {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
+	public List<Allievo> getAllievi() {
+		return allievi;
+	}
+
+	public void setAllievi(List<Allievo> allievi) {
+		this.allievi = allievi;
+	}
+	
 }

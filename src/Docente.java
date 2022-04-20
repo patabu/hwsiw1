@@ -7,17 +7,18 @@ import javax.persistence.OneToMany;
 
 import java.util.List;
 
+// Se un docente viene rimosso deve essere rimosso anche il corso associato. 
+// Se viene aggiunto controllo se bisogna aggiungere i rispettivi corsi
+
 @Entity
 public class Docente {
+	@Id
+	private Long id;
 	@Column(nullable = false)
 	private String nome;
-	@Column(nullable = false)
 	private String cognome;
-	@Column(nullable = false)
 	private String dataNascita;
-	@Column(nullable = false)
 	private String luogoNascita;
-	@Id
 	private String partitaIva;
 	@OneToMany(mappedBy = "docente", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Corso> corsi;
@@ -25,15 +26,24 @@ public class Docente {
 	public Docente() {
 	}
 
-	public Docente(String nome, String cognome, String dataNascita, String luogoNascita, String partitaIva,
+	public Docente(Long id, String nome, String cognome, String dataNascita, String luogoNascita, String partitaIva,
 			List<Corso> corsi) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataNascita = dataNascita;
 		this.luogoNascita = luogoNascita;
 		this.partitaIva = partitaIva;
 		this.corsi = corsi;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -85,10 +95,3 @@ public class Docente {
 	}
 
 }
-
-/*
- * in questa classe sono sicuramente interessato a visualizzare i corsi del
- * docente, inoltre se un docente viene rimosso deve essere rimosso anche il
- * corso dato che esso può avere un solo docente, mentre se viene aggiunto è
- * utile controllare se bisogna aggiungere i rispettivi corsi
- */

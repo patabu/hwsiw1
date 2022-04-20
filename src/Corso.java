@@ -2,11 +2,15 @@ import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import java.util.*;
 
+//Se rendo persistente un corso, verifico la presenza del docente e allievi associati
+
+@Entity
 public class Corso {
 	@Column(nullable = false)
 	private String nome;
@@ -69,7 +73,4 @@ public class Corso {
 	public void setAllievi(List<Allievo> allievi) {
 		this.allievi = allievi;
 	}
-/*ogni volta che voglio rendere persistente un corso è utile verificare la presenza del
- * docente associato e degli allievi che lo frequentano
- */
 }

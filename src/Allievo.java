@@ -3,30 +3,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import java.util.*;
 
+//Di un corso è utile verificare l'esistenza nel db dei corsi dell'allievo persistente
+
 @Entity
 public class Allievo {
+	@Id
+	private Long matricola;
 	@Column(nullable = false)
 	private String nome;
-	@Column(nullable = false)
 	private String cognome;
-	@Column(nullable = false)
 	private String dataNascita;
-	@Column(nullable = false)
 	private String luogoNascita;
-	@Id
-	private String matricola;
-	@Column(nullable = false)
 	private String email;
+	@ManyToOne
+	private Societa societa;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Corso> corsi;
 
 	public Allievo() {
 	}
 
-	public Allievo(String nome, String cognome, String dataNascita, String luogoNascita, String matricola,
+	public Allievo(String nome, String cognome, String dataNascita, String luogoNascita, Long matricola,
 			String email) {
 		super();
 		this.nome = nome;
@@ -69,11 +70,11 @@ public class Allievo {
 		this.luogoNascita = luogoNascita;
 	}
 
-	public String getMatricola() {
+	public Long getMatricola() {
 		return matricola;
 	}
 
-	public void setMatricola(String matricola) {
+	public void setMatricola(Long matricola) {
 		this.matricola = matricola;
 	}
 
@@ -92,7 +93,12 @@ public class Allievo {
 	public void setCorsi(List<Corso> corsi) {
 		this.corsi = corsi;
 	}
-/*analogamente a "corso" è utile verificare l'esistenza nel database dei corsi dell'allievo
- * reso persistente
- */
+	
+	public Societa getSocieta() {
+		return societa;
+	}
+
+	public void setSocieta(Societa societa) {
+		this.societa = societa;
+	}
 }
